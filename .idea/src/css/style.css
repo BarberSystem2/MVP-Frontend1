@@ -1,0 +1,76 @@
+/* Grundopsætning */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+    padding: 40px;
+    margin: 0;
+    color: #333;
+}
+
+/* Bookingform */
+form {
+    background-color: #fff;
+    padding: 30px;
+    max-width: 550px;
+    margin: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Label og felter */
+label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 600;
+    color: #444;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #26a69a;
+    outline: none;
+}
+
+/* Knappen */
+button {
+    margin-top: 30px;
+    padding: 14px;
+    background-color: #26a69a;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2bbbad;
+}
+
+/* Booking-bekræftelse */
+.booking-summary {
+    max-width: 550px;
+    margin: 40px auto;
+    background-color: #e8f5e9;
+    padding: 25px;
+    border-left: 5px solid #66bb6a;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.booking-summary h2 {
+    margin-top: 0;
+    color: #388e3c;
+}

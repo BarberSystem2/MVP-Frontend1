@@ -1,0 +1,41 @@
+    <!DOCTYPE html>
+    <html lang="da">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Frisør Booking Demo</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+    <h1>Book en frisørtid</h1>
+    <form id="bookingForm">
+        <label for="employee">Vælg medarbejder:</label>
+        <select id="employee" required>
+            <option value="">-- Vælg --</option>
+            <option value="Sofie">Sofie</option>
+            <option value="Mikkel">Mikkel</option>
+        </select>
+
+        <label for="date">Vælg dato:</label>
+        <input type="date" id="date" required>
+
+        <label for="time">Vælg ledig tid:</label>
+        <select id="time" required>
+            <option value="">-- Vælg dato først --</option>
+        </select>
+
+        <label for="service">Vælg service:</label>
+        <select id="service" required>
+            <option value="">-- Vælg --</option>
+            <option value="Hårklip (30 min)">Hårklip (30 min)</option>
+            <option value="Hår + Skæg (45 min)">Hår + Skæg (45 min)</option>
+        </select>
+
+        <button type="submit">Bekræft booking</button>
+    </form>
+
+    <div id="summary" class="booking-summary" style="display: none;"></div>
+
+    <script src="../js/script.js"></script>
+    </body>
+    </html>
