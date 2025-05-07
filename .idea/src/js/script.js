@@ -23,18 +23,23 @@ dateInput.addEventListener("change", () => {
 form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const employee = document.getElementById("employee").value;
+    const employeeSelect = document.getElementById("employee");
+    const employeeId = employeeSelect.value;
+    const employeeName = employeeSelect.options[employeeSelect.selectedIndex].textContent;
+
     const date = dateInput.value;
     const time = timeSelect.value;
-    const service = document.getElementById("service").value;
+    const serviceSelect = document.getElementById("service")
+    const serviceId = serviceSelect.value;
+    const serviceName = serviceSelect.options[serviceSelect.selectedIndex].textContent
 
     if (employee && date && time && service) {
         summary.innerHTML = `
       <h2>Booking bekræftet</h2>
-      <p><strong>Medarbejder:</strong> ${employee}</p>
+      <p><strong>Medarbejder:</strong> ${employeeName}</p>
       <p><strong>Dato:</strong> ${date}</p>
       <p><strong>Tid:</strong> ${time}</p>
-      <p><strong>Service:</strong> ${service}</p>
+      <p><strong>Service:</strong> ${serviceName}</p>
     `;
         summary.style.display = "block";
         form.reset();
