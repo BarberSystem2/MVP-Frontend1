@@ -7,12 +7,18 @@ body {
     color: #333;
 }
 
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
 /* Bookingform */
 form {
     background-color: #fff;
     padding: 30px;
     max-width: 550px;
-    margin: auto;
+    margin: 40px auto;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
@@ -58,16 +64,43 @@ button:hover {
     background-color: #2bbbad;
 }
 
-/* Booking-bekræftelse */
+/* Booking-bekræftelse og -oversigt */
 .booking-summary {
-    max-width: 550px;
-    margin: 40px auto;
-    background-color: #e8f5e9;
-    padding: 25px;
-    border-left: 5px solid #66bb6a;
-    border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     font-size: 17px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Bookingoversigt tabel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 14px 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 15px;
+}
+
+th {
+    background-color: #e0f2f1;
+    color: #004d40;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f8e9;
 }
 
 .booking-summary h2 {
