@@ -10,10 +10,8 @@
     <h1>Book en frisørtid</h1>
     <form id="bookingForm">
         <label for="employee">Vælg medarbejder:</label>
-        <select id="employee" required>
+        <select id="employee" name="employee" required>
             <option value="">-- Vælg --</option>
-            <option value="Sofie">Sofie</option>
-            <option value="Mikkel">Mikkel</option>
         </select>
 
         <label for="date">Vælg dato:</label>
@@ -37,5 +35,6 @@
     <div id="summary" class="booking-summary" style="display: none;"></div>
 
     <script src="../js/script.js"></script>
+    <script src="../js/app.js"></script>
     </body>
     </html>
