@@ -1,88 +1,99 @@
- // ← Udskift med din rigtige API-URL
-
 document.addEventListener("DOMContentLoaded", () => {
-    const employeeSelect = document.getElementById("employee");
+    const employeeSelect = document.getElementById("employeeSelect");
+    const serviceTypeSelect = document.getElementById("serviceTypeSelect");
+    const bookingForm = document.getElementById("bookingForm");
+    const dateInput = document.getElementById("bookingDate");
+    const timeSelect = document.getElementById("bookingTime");
+    const responseDiv = document.getElementById("response");
 
-    fetch("http://localhost:8080/employee/allEmployees") // ← Brug din faktiske API URL
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Kunne ikke hente medarbejdere");
-            }
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(employee => {
+    const API_URL = "http://localhost:8080";
+
+    const availableTimes = [
+        "09:00", "09:30", "10:00", "10:30",
+        "11:00", "11:30", "13:00", "13:30",
+        "14:00", "14:30"
+    ];
+
+    async function loadEmployees() {
+        try {
+            const res = await fetch(`${API_URL}/employee/allEmployees`);
+            const employees = await res.json();
+            console.log("Employees loaded:", employees);
+
+            employees.forEach(emp => {
                 const option = document.createElement("option");
-                option.value = employee.employeeId;
-                option.textContent = employee.employeeName;
+                option.value = emp.employeeId
+                option.textContent = emp.employeeName
                 employeeSelect.appendChild(option);
             });
-        })
-        .catch(error => {
-            console.error("Fejl ved hentning af medarbejderdata:", error);
-        });
-});
+        } catch (error) {
+            console.error("Fejl ved hentning af employees:", error);
+        }
+    }
 
- document.addEventListener("DOMContentLoaded", () => {
-     const serviceTypeSelect = document.getElementById("service");
+    async function loadServiceType() {
+        try {
+            const res = await fetch(`${API_URL}/serviceType/getAll`);
+            const servicetypes = await res.json();
+            console.log("Service types loaded:", servicetypes);
 
-     fetch("http://localhost:8080/serviceType/getAll")
-         .then(response => {
-             if (!response.ok) {
-                 throw new Error("Kunne ikke hente services");
-             }
-             return response.json();
-         })
-         .then(data => {
-             data.forEach(servicetype =>{
-                 const option = document.createElement("option");
-                 option.value = servicetype.serviceTypeId;
-                 option.textContent = servicetype.serviceType +
-                 " Service " + servicetype.serviceTypePrice + ",- Kr " + servicetype.estimatedTimer + " min.";
-                 serviceTypeSelect.appendChild(option);
-             });
-         })
-         .catch(error =>{
-             console.error("Fejl", error)
-         });
- });
-
- const API_URL = "http://localhost:8080/bookings/getbookings";
-document.addEventListener("DOMContentLoaded", () => {
-    const tbody = document.querySelector("#bookingTable tbody");
-
-    fetch(API_URL)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Fejl ved hentning: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .then(bookings => {
-            console.log(bookings); // Log dataen for at se strukturen
-
-            bookings.forEach(booking => {
-                const row = document.createElement("tr");
-
-                // Log dataen for den enkelte booking
-                console.log(booking);
-
-                row.innerHTML = `
-                    <td>${booking.bookingId}</td>
-                    <td>${booking.salonName}</td>
-                    <td>${booking.bookingDate}</td>
-                    <td>${booking.bookingTime}</td>
-                    <td>${booking.costumerName}</td>
-                    <td>${booking.employeeName}</td>
-                    <td>${booking.serviceType}</td>
-                    <td>${booking.serviceTypePrice}</td>
-                `;
-
-                tbody.appendChild(row);
+            servicetypes.forEach(ser => {
+                const option = document.createElement("option");
+                option.value = ser.serviceTypeId;  // brug det korrekte felt
+                option.textContent = `${ser.serviceType} - ${ser.serviceTypePrice} DKK - ${ser.estimatedTimer} min.`;
+                serviceTypeSelect.appendChild(option);
             });
-        })
-        .catch(error => {
-            tbody.innerHTML = `<tr><td colspan="8">Kunne ikke hente data: ${error.message}</td></tr>`;
-            console.error("Fejl ved hentning af bookingdata:", error);
+        } catch (error) {
+            console.error("Fejl ved hentning af service types:", error);
+        }
+    }
+
+    dateInput.addEventListener("change", () => {
+        timeSelect.innerHTML = '<option value="">-- Vælg --</option>';
+        availableTimes.forEach(time => {
+            const option = document.createElement("option");
+            option.value = time;
+            option.textContent = time;
+            timeSelect.appendChild(option);
         });
+    });
+
+    bookingForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const dto = {
+            customerName: document.getElementById("customerName").value,
+            employeeId: parseInt(employeeSelect.value),
+            serviceTypeId: parseInt(serviceTypeSelect.value),
+            salonId: 1,
+            bookingdate: dateInput.value,
+            bookingtime: timeSelect.value
+        };
+
+        try {
+            const res = await fetch(`${API_URL}/bookings/create`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dto)
+            });
+
+            const data = await res.json();
+            responseDiv.innerHTML = `
+                <strong>Booking bekræftet!</strong><br />
+                Kunde: ${data.costumerName || dto.customerName}<br />
+                Medarbejder: ${data.employerName || "Ukendt"}<br />
+                Service: ${data.serviceName || "Ukendt"}<br />
+                Pris: ${data.servicePrice || "?"} DKK<br />
+                Dato: ${data.bookingDate || dto.bookingdate}<br />
+                Tid: ${data.bookingTimeStart || dto.bookingtime}
+            `;
+        } catch (error) {
+            responseDiv.innerHTML = "Noget gik galt under bookingen. Prøv igen.";
+            console.error("Fejl ved booking:", error);
+        }
+    });
+
+    // Load data ved start
+    loadEmployees();
+    loadServiceType();
 });
