@@ -1,40 +1,36 @@
-    <!DOCTYPE html>
-    <html lang="da">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Frisør Booking Demo</title>
-        <link rel="stylesheet" href="../css/style.css">
-    </head>
-    <body>
-    <h1>Book en frisørtid</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Booking Form</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<div class="container">
+    <h1>Opret Booking</h1>
     <form id="bookingForm">
-        <label for="employee">Vælg medarbejder:</label>
-        <select id="employee" name="employee" required>
-            <option value="">-- Vælg --</option>
-        </select>
+        <label for="customerName">Kundenavn:</label>
+        <input type="text" id="customerName" required />
 
-        <label for="date">Vælg dato:</label>
-        <input type="date" id="date" required>
+        <label for="employeeSelect">Vælg medarbejder:</label>
+        <select id="employeeSelect" required></select>
 
-        <label for="time">Vælg ledig tid:</label>
-        <select id="time" required>
-            <option value="">-- Vælg dato først --</option>
-        </select>
+        <label for="serviceTypeSelect">Service-navn:</label>
+        <select id="serviceTypeSelect" required></select>
 
-        <label for="service">Vælg service:</label>
-        <select id="service" required>
-            <option value="">-- Vælg --</option>
-            <option value="Hårklip (30 min)">Hårklip (30 min)</option>
-            <option value="Hår + Skæg (45 min)">Hår + Skæg (45 min)</option>
-        </select>
+        <label for="bookingDate">Dato:</label>
+        <input type="date" id="bookingDate" required />
 
-        <button type="submit">Bekræft booking</button>
+        <label for="bookingTime">Tid:</label>
+        <input type="time" id="bookingTime" required />
+
+        <button type="submit">Book tid</button>
     </form>
 
-    <div id="summary" class="booking-summary" style="display: none;"></div>
+    <div id="response" class="response"></div>
+</div>
 
-    <script src="../js/script.js"></script>
-    <script src="../js/app.js"></script>
-    </body>
-    </html>
+<script src="../js/app.js"></script>
+</body>
+</html>
